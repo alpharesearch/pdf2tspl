@@ -47,7 +47,7 @@ def convert_pdf_scaled(pdfname, max_width, max_height):
 
     return im
 
-def pdf2tspl(filename, labelwidth_mm=100, labelheight_mm=150, dpi=203.2):
+def pdf2tspl(filename, labelwidth_mm=101.6, labelheight_mm=152.4, dpi=203.2):
     labelwidth = int(round(labelwidth_mm / 25.4 * dpi))
     labelheight = int(round(labelheight_mm / 25.4 * dpi))
 
@@ -69,8 +69,8 @@ if __name__ == "__main__":
     parser.add_argument('pdf_file', help='The PDF to convert.')
     parser.add_argument('tspl_file', help='The file or device to write the TSPL code to. Can be a printer device eg. /dev/usb/lp0, or specify "-" to write to stdout.')
 
-    parser.add_argument('-x', '--width', type=int, default=101.6, help='The width of the label, in millimetres.')
-    parser.add_argument('-y', '--height', type=int, default=152.4, help='The height of the label, in millimetres.')
+    parser.add_argument('-x', '--width', type=float, default=101.6, help='The width of the label, in millimetres.')
+    parser.add_argument('-y', '--height', type=float, default=152.4, help='The height of the label, in millimetres.')
     parser.add_argument('-d', '--dpi', type=float, default=203.2, help='Resolution of the printer. Defaults to 8 dots per mm (203.2 dpi)')
     args = parser.parse_args()
 

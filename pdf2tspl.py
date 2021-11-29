@@ -9,10 +9,14 @@ class Image:
     width: int
     height: int
     data: bytes
+def remove_suffix(input_string, suffix):
+    if suffix and input_string.endswith(suffix):
+        return input_string[:-len(suffix)]
+    return input_string
 
 def convert_pdf(pdfname, args=[]):
     with tempfile.NamedTemporaryFile(suffix='.pbm') as pbmfile:
-        subprocess.check_call(["pdftoppm", "-mono", "-singlefile"] + args + [pdfname, pbmfile.name.removesuffix('.pbm')])
+        subprocess.check_call(["pdftoppm", "-mono", "-singlefile"] + args + [pdfname, remove_suffix(pbmfile.name,'.pbm')])
 
         header = pbmfile.readline()
         if header.strip() != b'P4':

@@ -50,7 +50,7 @@ def accept_one_job(sock):
     for i in range(inputpdf.numPages):
         output = PdfFileWriter()
         output.addPage(inputpdf.getPage(i))
-        temp_pdf_name = "temp/document-page%s.pdf" % i
+        temp_pdf_name = "/tmp/document-page%s.pdf" % i
         with open(temp_pdf_name, "wb") as outputStream:
             output.write(outputStream)
 

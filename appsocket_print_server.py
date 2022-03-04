@@ -45,10 +45,19 @@ def accept_one_job(sock):
     with tempfile.NamedTemporaryFile(suffix=".pdf") as pdffile:
         pdffile.write(pdf_data)
         pdffile.flush()
-        tspl = pdf2tspl.pdf2tspl(pdffile.name)
+        inputpdf = PdfFileReader(open(pdffile.name, "rb"))
 
-    with open(printer, 'wb') as fp:
-        fp.write(tspl)
+    for i in range(inputpdf.numPages):
+        output = PdfFileWriter()
+        output.addPage(inputpdf.getPage(i))
+        temp_pdf_name = "temp/document-page%s.pdf" % i
+        with open(temp_pdf_name, "wb") as outputStream:
+            output.write(outputStream)
+
+        tspl = pdf2tspl.pdf2tspl(temp_pdf_name)
+
+        with open(printer, 'wb') as fp:
+           fp.write(tspl)
 
     logging.info('Job complete')
 
